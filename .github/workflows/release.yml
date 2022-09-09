@@ -23,7 +23,7 @@ jobs:
         run: |
           #!/usr/bin/env bash
           set -euo pipefail
-          VERSION="$(echo $GITHUB_REF | tr -d 'v')"
+          VERSION=${GITHUB_REF##refs/tags/v}
           IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY}"
           pack build ${IMAGE_NAME}:${VERSION} --builder paketobuildpacks/builder:tiny --env BP_JVM_VERSION=17 --publish
           DIGEST="$(crane digest ${IMAGE_NAME}:${VERSION})"
