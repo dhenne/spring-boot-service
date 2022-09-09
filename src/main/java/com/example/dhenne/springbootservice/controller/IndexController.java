@@ -1,0 +1,26 @@
+package com.example.dhenne.springbootservice.controller;
+
+
+import com.example.dhenne.springbootservice.controller.dto.IndexDto;
+import com.example.dhenne.springbootservice.properties.SpringBootServiceProperties;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+public class IndexController {
+
+    private final SpringBootServiceProperties springBootServiceProperties;
+
+    public static final String HELLO_APPLICATION = "Hello Application ";
+
+    @GetMapping
+    public ResponseEntity<IndexDto> index() {
+        return ResponseEntity.ok(IndexDto.builder().message(HELLO_APPLICATION + springBootServiceProperties.getVersion()).build());
+    }
+
+
+}
