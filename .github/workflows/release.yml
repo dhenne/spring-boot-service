@@ -1,13 +1,11 @@
 name: Release
 on:
   push:
-    branches:
-      - main
     tags:
-      - v*
+      - 'v*'
 jobs:
   register:
-    name: Package, Publish, and Register
+    name: Package, Publish
     runs-on:
       - ubuntu-latest
     steps:
@@ -16,8 +14,8 @@ jobs:
       - if: ${{ github.event_name != 'pull_request' || ! github.event.pull_request.head.repo.fork }}
         uses: docker/login-action@v1
         with:
-          registry: docker.io
-          username: ${{ GITHUB_REPOSITORY_OWNER	}}
+          registry: ghcr.io
+          username: ${{ secrets.OCI_REGISTRY_USER }}
           password: ${{ secrets.OCI_REGISTRY_PASS }}
       - id: setup-pack
         uses: buildpacks/github-actions/setup-pack@v4.4.0
@@ -25,16 +23,23 @@ jobs:
         run: |
           #!/usr/bin/env bash
           set -euo pipefail
-          VERSION="$(echo $GITHUB_REF | tr -d 'v')"
+          VERSION=${GITHUB_REF##refs/tags/v}
           IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY}"
-          pack build ${IMAGE_NAME}:{VERSION} --builder paketobuildpacks/builder:tiny --env BP_JVM_VERSION=17 --publish
+          pack build ${IMAGE_NAME}:${VERSION} --builder paketobuildpacks/builder:tiny --env BP_JVM_VERSION=17 --publish
           DIGEST="$(crane digest ${IMAGE_NAME}:${VERSION})"
+          echo "::set-output name=id::${IMAGE_NAME}"
           echo "::set-output name=version::$VERSION"
-          echo "::set-output name=address::${PACKAGE}@${DIGEST}"
+          echo "::set-output name=digest::${IMAGE_NAME}@${DIGEST}"
         shell: bash
-      - id: register
-        uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.4.0
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          token:   ${{ secrets.OCI_REGISTRY_PASS }}
-          version: ${{ steps.package.outputs.version }}
-          address: ${{ steps.package.outputs.address }}
+          tag_name: ${{ steps.package.outputs.version }}
+          release_name: ${{ steps.package.outputs.id }}:${{ steps.package.outputs.version }}
+          body: |
+            Released with digest: ${{ steps.package.outputs.digest }}
+          draft: false
+          prerelease: false
