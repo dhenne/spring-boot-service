@@ -27,6 +27,7 @@ jobs:
           IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY}"
           pack build ${IMAGE_NAME}:${VERSION} --builder paketobuildpacks/builder:tiny --env BP_JVM_VERSION=17 --publish
           DIGEST="$(crane digest ${IMAGE_NAME}:${VERSION})"
+          echo "::set-output name=id::${IMAGE_NAME}"
           echo "::set-output name=version::$VERSION"
           echo "::set-output name=address::${IMAGE_NAME}@${DIGEST}"
         shell: bash
@@ -34,5 +35,6 @@ jobs:
         uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.4.0
         with:
           token:   ${{ secrets.OCI_REGISTRY_PASS }}
+          id:      ${{ steps.package.outputs.id }}
           version: ${{ steps.package.outputs.version }}
           address: ${{ steps.package.outputs.address }}
