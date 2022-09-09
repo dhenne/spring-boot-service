@@ -37,9 +37,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.package.outputs.version }}
-          release_name: ${{ steps.package.outputs.id }}:${{ steps.package.outputs.version }}
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
           body: |
+            Image url: ${{ steps.package.outputs.id }}:${{ steps.package.outputs.version }}
             Released with digest: ${{ steps.package.outputs.digest }}
           draft: false
           prerelease: false
