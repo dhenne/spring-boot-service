@@ -31,10 +31,15 @@ jobs:
           echo "::set-output name=version::$VERSION"
           echo "::set-output name=address::${IMAGE_NAME}@${DIGEST}"
         shell: bash
-      - id: register
-        uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.4.0
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          token:   ${{ secrets.OCI_REGISTRY_PASS }}
-          id:      ${{ steps.package.outputs.id }}
-          version: ${{ steps.package.outputs.version }}
-          address: ${{ steps.package.outputs.address }}
+          tag_name: ${{ steps.package.outputs.version }}
+          release_name: ${{ steps.package.outputs.id }}:${{ steps.package.outputs.version }}
+          body: |
+            Released with digest: ${{ steps.package.outputs.version }}
+          draft: false
+          prerelease: false
