@@ -25,7 +25,7 @@ jobs:
           set -euo pipefail
           VERSION="$(echo $GITHUB_REF | tr -d 'v')"
           IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY}"
-          pack build ${IMAGE_NAME}:{VERSION} --builder paketobuildpacks/builder:tiny --env BP_JVM_VERSION=17 --publish
+          pack build ${IMAGE_NAME}:${VERSION} --builder paketobuildpacks/builder:tiny --env BP_JVM_VERSION=17 --publish
           DIGEST="$(crane digest ${IMAGE_NAME}:${VERSION})"
           echo "::set-output name=version::$VERSION"
           echo "::set-output name=address::${PACKAGE}@${DIGEST}"
