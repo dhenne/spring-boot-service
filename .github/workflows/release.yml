@@ -28,7 +28,7 @@ jobs:
           pack build ${IMAGE_NAME}:${VERSION} --builder paketobuildpacks/builder:tiny --env BP_JVM_VERSION=17 --publish
           DIGEST="$(crane digest ${IMAGE_NAME}:${VERSION})"
           echo "::set-output name=version::$VERSION"
-          echo "::set-output name=address::${PACKAGE}@${DIGEST}"
+          echo "::set-output name=address::${IMAGE_NAME}@${DIGEST}"
         shell: bash
       - id: register
         uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:4.4.0
