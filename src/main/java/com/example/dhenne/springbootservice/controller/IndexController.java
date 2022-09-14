@@ -4,7 +4,6 @@ package com.example.dhenne.springbootservice.controller;
 import com.example.dhenne.springbootservice.controller.dto.IndexDto;
 import com.example.dhenne.springbootservice.properties.SpringBootServiceProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +18,14 @@ public class IndexController {
 
     @GetMapping
     public ResponseEntity<IndexDto> index() {
-        return ResponseEntity.ok(IndexDto.builder().message(HELLO_APPLICATION + springBootServiceProperties.getVersion()).build());
+        return ResponseEntity.ok(
+                IndexDto.builder()
+                        .message(HELLO_APPLICATION + springBootServiceProperties.getVersion())
+                        .environment(springBootServiceProperties.getEnvironment())
+                        .globalParam1(springBootServiceProperties.getGlobalParam1())
+                        .localParam2(springBootServiceProperties.getLocalParam2())
+                        .build()
+        );
     }
 
 

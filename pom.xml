@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.example.dhenne</groupId>
 	<artifactId>spring-boot-service</artifactId>
-	<version>0.0.12-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<name>spring-boot-service</name>
 	<description>example project</description>
 	<scm>
@@ -24,7 +24,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

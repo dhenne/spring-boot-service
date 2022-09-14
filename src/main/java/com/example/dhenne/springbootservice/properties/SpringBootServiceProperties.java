@@ -10,4 +10,9 @@ import org.springframework.context.annotation.Configuration;
 public class SpringBootServiceProperties {
 
     private String version;
+
+    private String environment;
+    private String globalParam1;
+    private String localParam2;
+
 }
