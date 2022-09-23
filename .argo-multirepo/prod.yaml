@@ -1,0 +1,4 @@
+name: springboot-multirepo-prod
+values: |
+  image:
+    tag: 0.1.0
