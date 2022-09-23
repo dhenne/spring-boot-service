@@ -1,2 +1,3 @@
-image:
-  tag: 0.1.0
+spring-boot-helm-demo:
+  image:
+    tag: 0.1.0
