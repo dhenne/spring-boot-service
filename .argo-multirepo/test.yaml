@@ -1,3 +1,4 @@
 name: springboot-multirepo-test
-image:
-  tag: 0.1.0
+values: |
+  image:
+    tag: 0.1.0
