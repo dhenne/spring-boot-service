@@ -1,0 +1,4 @@
+name: springboot-multisource-test
+values: |
+  image:
+    tag: 0.1.0
