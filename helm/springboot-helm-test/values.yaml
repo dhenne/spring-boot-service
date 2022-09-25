@@ -7,9 +7,9 @@ spring-boot-helm-demo:
       - host: spring-boot-helm-test.192.168.49.2.nip.io
         paths:
           - path: /
-            pathType: Exact
+            pathType: Prefix
             backend:
               service:
                 name: springboot-helm-prod-spring-boot-helm-demo
                 port:
-                  number: 80
+                  number: 8080
