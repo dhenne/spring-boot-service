@@ -13,9 +13,6 @@ on:
       OCI_REGISTRY_PASS:
         description: 'oci registry password'
         required: true
-      GITHUB_TOKEN:
-        description: 'github token'
-        required: true
 
 jobs:
   register:
