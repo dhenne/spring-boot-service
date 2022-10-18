@@ -6,7 +6,7 @@ on:
       - '.argo-multisource-files/**'
       - 'helm/**'
 jobs:
-  bump-and-push:
+  bump:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
@@ -20,7 +20,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
-      - id: call-workflow
-        uses: dhenne/spring-boot-service/.github/workflows/release.yml@main
-        with:
-          version: ${{ steps.run_tests.outputs.part }}
+    outputs:
+      version: ${{ steps.run_tests.outputs.part }}
+  call-release-workflow:
+    uses: dhenne/spring-boot-service/.github/workflows/release.yml@main
+    needs: bump
+    with:
+      version: ${{ needs.bump.outputs.version }}
