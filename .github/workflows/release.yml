@@ -1,8 +1,12 @@
 name: Release
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_call:
+    inputs:
+      version:
+        description: 'A version to be released'
+        default: 'v0.0.0'
+        required: true
+        type: string
 
 jobs:
   register:
@@ -29,7 +33,7 @@ jobs:
         run: |
           #!/usr/bin/env bash
           set -euo pipefail
-          VERSION=${GITHUB_REF##refs/tags/v}
+          VERSION=${{ inputs.version }}
           IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY}"
           mvn versions:set -DnewVersion=$VERSION
           pack build ${IMAGE_NAME}:${VERSION} \
