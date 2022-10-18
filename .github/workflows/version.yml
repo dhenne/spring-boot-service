@@ -2,12 +2,13 @@
 name: Bump version
 on:
   push:
-    branches:
-      - main
+    paths:
+      - src/**
+      - pom.xml
 jobs:
-  build:
+  bump-and-push:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
         with:
