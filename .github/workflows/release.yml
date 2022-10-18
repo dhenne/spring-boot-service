@@ -58,8 +58,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.package.output.version }}
-          release_name: ${{ steps.package.output.version }}
+          tag_name: ${{ steps.package.outputs.version }}
+          release_name: ${{ steps.package.outputs.version }}
           body: |
             Image url: ${{ steps.package.outputs.id }}:${{ steps.package.outputs.version }}
             Released with digest: ${{ steps.package.outputs.digest }}
