@@ -39,7 +39,7 @@ jobs:
         run: |
           #!/usr/bin/env bash
           set -euo pipefail
-          VERSION=${{ inputs.version }}
+          VERSION=$(echo ${{ inputs.version }} | tr -d 'v')
           IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY}"
           mvn versions:set -DnewVersion=$VERSION
           pack build ${IMAGE_NAME}:${VERSION} \
@@ -58,8 +58,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          tag_name: ${{ steps.package.output.version }}
+          release_name: ${{ steps.package.output.version }}
           body: |
             Image url: ${{ steps.package.outputs.id }}:${{ steps.package.outputs.version }}
             Released with digest: ${{ steps.package.outputs.digest }}

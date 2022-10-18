@@ -21,7 +21,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
     outputs:
-      version: ${{ steps.run_tests.outputs.part }}
+      version: ${{ steps.github-tag.outputs.new_tag }}
   call-release-workflow:
     uses: dhenne/spring-boot-service/.github/workflows/release.yml@main
     needs: bump
