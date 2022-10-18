@@ -4,9 +4,18 @@ on:
     inputs:
       version:
         description: 'A version to be released'
-        default: 'v0.0.0'
         required: true
         type: string
+    secrets:
+      OCI_REGISTRY_USER:
+        description: 'oci registry username'
+        required: true
+      OCI_REGISTRY_PASS:
+        description: 'oci registry password'
+        required: true
+      GITHUB_TOKEN:
+        description: 'github token'
+        required: true
 
 jobs:
   register:
