@@ -6,6 +6,7 @@ on:
 jobs:
   register:
     name: Package, Publish
+    if: github.ref == 'refs/heads/master'
     runs-on:
       - ubuntu-latest
     steps:
@@ -42,7 +43,7 @@ jobs:
           echo "::set-output name=digest::${IMAGE_NAME}@${DIGEST}"
         shell: bash
       - name: Create Release
-        id: create_release
+        id: create-release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
