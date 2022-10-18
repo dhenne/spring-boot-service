@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.example.dhenne</groupId>
 	<artifactId>spring-boot-service</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 	<name>spring-boot-service</name>
 	<description>example project</description>
 	<scm>

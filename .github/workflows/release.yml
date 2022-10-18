@@ -17,6 +17,11 @@ jobs:
           registry: ghcr.io
           username: ${{ secrets.OCI_REGISTRY_USER }}
           password: ${{ secrets.OCI_REGISTRY_PASS }}
+      - id: set version
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
       - id: setup-pack
         uses: buildpacks/github-actions/setup-pack@v4.4.0
       - id: package
@@ -25,6 +30,7 @@ jobs:
           set -euo pipefail
           VERSION=${GITHUB_REF##refs/tags/v}
           IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY}"
+          mvn versions:set -DnewVersion=$VERSION
           pack build ${IMAGE_NAME}:${VERSION} \
             --builder paketobuildpacks/builder:tiny \
             --publish \
