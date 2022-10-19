@@ -58,3 +58,4 @@ jobs:
         with:
           add: .argo-multisource-files/${{ inputs.environment }}.yaml
           message: "deploy version ${{ inputs.version }} to springboot-multisource-files-${{ inputs.environment }}"
+    needs: deploy-to-helm # does not need the job, but delays until commit is done

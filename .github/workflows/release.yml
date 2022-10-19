@@ -76,7 +76,9 @@ jobs:
       environment: test
   call-deploy-prod-workflow:
     uses: dhenne/spring-boot-service/.github/workflows/deployment.yml@main
-    needs: publish
+    needs:
+      - publish
+      - call-deploy-test-workflow
     with:
       version: ${{ needs.publish.outputs.version }}
       environment: prod
