@@ -16,7 +16,7 @@ jobs:
   deploy-to-helm:
     runs-on: ubuntu-latest
     environment:
-      name: ${{ inputs.environment }}
+      name: springboot-helm-${{ inputs.environment }}
     steps:
       - uses: actions/checkout@v2
       - name: update image tag
