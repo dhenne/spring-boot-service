@@ -11,7 +11,20 @@ on:
         description: 'A target to deploy to'
         default: test
         type: string
-
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'A version to be deployed'
+        type: string
+        required: true
+      environment:
+        description: 'A target to deploy to'
+        required: true
+        default: 'prod'
+        type: choice
+        options:
+          - prod
+          - test
 jobs:
   deploy-to-helm:
     runs-on: ubuntu-latest

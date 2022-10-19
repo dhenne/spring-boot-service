@@ -68,10 +68,17 @@ jobs:
 
     outputs:
       version: ${{ steps.package.outputs.version }}
-  call-deploy-workflow:
+  call-deploy-test-workflow:
     uses: dhenne/spring-boot-service/.github/workflows/deployment.yml@main
     needs: publish
     with:
       version: ${{ needs.publish.outputs.version }}
       environment: test
+  call-deploy-prod-workflow:
+    uses: dhenne/spring-boot-service/.github/workflows/deployment.yml@main
+    needs: publish
+    with:
+      version: ${{ needs.publish.outputs.version }}
+      environment: prod
+
 
