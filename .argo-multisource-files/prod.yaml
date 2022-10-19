@@ -1,4 +1,4 @@
 name: springboot-multisource-prod
 values: |
   image:
-    tag: 0.17.0
+    tag: 0.18.0
