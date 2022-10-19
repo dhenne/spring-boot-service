@@ -19,12 +19,14 @@ jobs:
       name: ${{ inputs.target }}
     steps:
       - uses: actions/checkout@v2
-      - name: Update values.yaml
-        uses: fjogeleit/yaml-update-action@v0.11.0
+      - name: update image tag
+        uses: mikefarah/yq@v4.28.2
         with:
-          valueFile: "helm/springboot-helm-${{ inputs.environment }}/values.yaml"
-          propertyPath: "spring-boot-helm-demo.image.tag"
-          value: "${{ inputs.version }}"
-          targetBranch: main
-          createPR: "false"
+          cmd: |
+            yq -i \
+              '."spring-boot-helm-demo".image.tag="${{ inputs.version }}"' \
+              helm/springboot-helm-${{ inputs.environment }}/values.yaml
+      - uses: EndBug/add-and-commit@v9.1.1
+        with:
+          add: helm/springboot-helm-${{ inputs.environment }}/values.yaml
           message: "deploy version ${{ inputs.version }} to ${{ inputs.environment }}"
