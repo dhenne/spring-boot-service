@@ -1,0 +1,30 @@
+name: Deployment
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: 'A version to be deployed'
+        required: true
+        type: string
+      environment:
+        description: 'A target to deploy to'
+        default: test
+        type: string
+
+jobs:
+  deploy-to-helm:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.target }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Update values.yaml
+        uses: fjogeleit/yaml-update-action@v0.11.0
+        with:
+          valueFile: "helm/springboot-helm${{ inputs.environment }}/values.yaml"
+          propertyPath: "spring-boot-helm-demo.image.tag"
+          value: "${{ inputs.version }}"
+          targetBranch: main
+          createPR: "false"
+          message: "deploy version ${{ inputs.version }} to ${{ inputs.environment }}"

@@ -15,7 +15,7 @@ on:
         required: true
 
 jobs:
-  register:
+  publish:
     name: Package, Publish
     runs-on:
       - ubuntu-latest
@@ -65,3 +65,13 @@ jobs:
             Released with digest: ${{ steps.package.outputs.digest }}
           draft: false
           prerelease: false
+
+    outputs:
+      version: ${{ steps.package.outputs.version }}
+  call-deploy-workflow:
+    uses: dhenne/spring-boot-service/.github/workflows/deployment.yml@main
+    needs: publish
+    with:
+      version: ${{ needs.publish.outputs.version }}
+      environment: test
+
