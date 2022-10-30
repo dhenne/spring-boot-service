@@ -3,8 +3,7 @@ name: Bump version
 on:
   push:
     paths-ignore:
-      - '.argo-multisource-files/**'
-      - 'helm/**'
+      - 'deployment/**'
 jobs:
   bump:
     runs-on: ubuntu-latest
