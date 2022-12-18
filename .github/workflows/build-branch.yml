@@ -29,7 +29,7 @@ jobs:
         run: |
           #!/usr/bin/env bash
           set -euo pipefail
-          VERSION=$(git rev-parse --short HEAD)
+          VERSION=$(git rev-parse --short=8 HEAD)
           IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY}"
           pack build ${IMAGE_NAME}:${VERSION} \
             --builder paketobuildpacks/builder:tiny \
