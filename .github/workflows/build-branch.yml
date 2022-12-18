@@ -23,7 +23,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - id: maven verify
+      - id: test
         run: mvn verify
       - id: setup-pack
         uses: buildpacks/github-actions/setup-pack@v4.4.0
