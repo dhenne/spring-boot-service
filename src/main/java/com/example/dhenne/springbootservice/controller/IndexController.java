@@ -16,16 +16,14 @@ public class IndexController {
 
     public static final String HELLO_APPLICATION = "Hello Application ";
 
-    @GetMapping
-    public ResponseEntity<IndexDto> index() {
-        return ResponseEntity.ok(
-                IndexDto.builder()
-                        .message(HELLO_APPLICATION + springBootServiceProperties.getVersion())
-                        .environment(springBootServiceProperties.getEnvironment())
-                        .globalParam1(springBootServiceProperties.getGlobalParam1())
-                        .localParam2(springBootServiceProperties.getLocalParam2())
-                        .build()
-        );
+    @GetMapping("/")
+    public IndexDto index() {
+        return IndexDto.builder()
+                .message(HELLO_APPLICATION + springBootServiceProperties.getVersion())
+                .environment(springBootServiceProperties.getEnvironment())
+                .globalParam1(springBootServiceProperties.getGlobalParam1())
+                .localParam2(springBootServiceProperties.getLocalParam2())
+                .build();
     }
 
 
