@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: update image tag
-        uses: mikefarah/yq@v4.28.2
+        uses: mikefarah/yq@v4.30.6
         with:
           cmd: |
             yq -i \
