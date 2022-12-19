@@ -31,7 +31,7 @@ jobs:
     environment:
       name: springboot-helm-${{ inputs.environment }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: update image tag
         uses: mikefarah/yq@v4.30.6
         with:
@@ -49,7 +49,7 @@ jobs:
     environment:
       name: springboot-multisource-files-${{ inputs.environment }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: update image tag
         run: |
           sed -i -E \
