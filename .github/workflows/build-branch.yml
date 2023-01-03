@@ -26,7 +26,7 @@ jobs:
       - id: test
         run: mvn verify
       - id: setup-pack
-        uses: buildpacks/github-actions/setup-pack@v4.9.0
+        uses: buildpacks/github-actions/setup-pack@v4.9.1
       - id: package
         run: |
           #!/usr/bin/env bash
