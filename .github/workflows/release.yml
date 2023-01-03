@@ -34,7 +34,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - id: setup-pack
-        uses: buildpacks/github-actions/setup-pack@v4.9.0
+        uses: buildpacks/github-actions/setup-pack@v4.9.1
       - id: package
         run: |
           #!/usr/bin/env bash
