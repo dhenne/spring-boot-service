@@ -39,7 +39,7 @@ jobs:
             yq -i \
               '."spring-boot-helm-demo".image.tag="${{ inputs.version }}"' \
               deployment/helm/springboot-helm-${{ inputs.environment }}/values.yaml
-      - uses: EndBug/add-and-commit@v9.1.1
+      - uses: EndBug/add-and-commit@v9.1.2
         with:
           add: deployment/helm/springboot-helm-${{ inputs.environment }}/values.yaml
           message: "deploy version ${{ inputs.version }} to springboot-helm-${{ inputs.environment }}"
@@ -55,7 +55,7 @@ jobs:
           sed -i -E \
             's/tag:\ [[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+/tag: ${{ inputs.version }}/' \
             deployment/multisource-files/${{ inputs.environment }}.yaml
-      - uses: EndBug/add-and-commit@v9.1.1
+      - uses: EndBug/add-and-commit@v9.1.2
         with:
           add: deployment/multisource-files/${{ inputs.environment }}.yaml
           message: "deploy version ${{ inputs.version }} to springboot-multisource-files-${{ inputs.environment }}"
