@@ -1,4 +1,4 @@
 name: springboot-multisource-test
 values: |
   image:
-    tag: 0.51.0
+    tag: 0.52.0
